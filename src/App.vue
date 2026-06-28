@@ -1,18 +1,21 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AppLayout from './components/AppLayout.vue'
+</script>
 
 <template>
-  <nav>
-    <router-link to="/home">首页 </router-link>
-    <router-link to="/list">列表 </router-link>
-    <router-link to="/publish">发布 </router-link>
-    <router-link to="/message">消息 </router-link>
-    <router-link to="/profile">我的</router-link>
-  </nav>
-
-  <router-view />
+  <AppLayout />
 </template>
-<style scoped>
-.app {
-  padding: 32px;
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 </style>
