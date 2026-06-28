@@ -1,7 +1,7 @@
 <template>
   <main class="page">
-    <h1>发布信息</h1>
-    <p>这里将提供信息发布功能。</p>
+    <h1>二手交易</h1>
+    <p>这里将展示校园二手商品信息。</p>
   </main>
 </template>
 

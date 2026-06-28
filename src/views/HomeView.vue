@@ -1,10 +1,15 @@
-<script setup lang="ts"></script>
-
 <template>
-  <section>
-    <h2>项目启动成功</h2>
-    <p>请按照每日任务要求，完成代码、证据卡和自动化检测。</p>
-  </section>
+  <main class="page">
+    <h1>首页</h1>
+    <p>这里将展示校园市集的首页内容。</p>
+  </main>
 </template>
 
-<style scoped></style>
+<script setup lang="ts">
+</script>
+
+<style scoped>
+.page {
+  padding: 24px;
+}
+</style>

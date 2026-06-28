@@ -1,7 +1,7 @@
 <template>
   <main class="page">
-    <h1>发布信息</h1>
-    <p>这里将提供信息发布功能。</p>
+    <h1>团购信息</h1>
+    <p>这里将展示校园团购活动信息。</p>
   </main>
 </template>
 
