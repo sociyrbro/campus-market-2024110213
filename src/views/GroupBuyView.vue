@@ -5,7 +5,8 @@
       <p>发起或加入团购，与同学一起享受优惠。</p>
     </div>
 
-   
+    <EmptyState v-if="groupBuys.length === 0" text="暂无团购记录" />
+
     <div class="list">
       <ItemCard
         v-for="item in groupBuys"
@@ -23,7 +24,6 @@
       </ItemCard>
     </div>
   </section>
-  <EmptyState v-if="groupBuys.length === 0" text="暂无团购记录" />
 </template>
 
 <script setup lang="ts">
