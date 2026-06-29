@@ -52,7 +52,7 @@ defineProps<{
   padding: 4px 8px;
   border-radius: 999px;
   background: #eff6ff;
-  color: #2563eb;
+  color: #5ae363;
   font-size: 12px;
 }
 
