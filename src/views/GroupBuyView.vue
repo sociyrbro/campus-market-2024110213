@@ -5,6 +5,7 @@
       <p>发起或加入团购，与同学一起享受优惠。</p>
     </div>
 
+   
     <div class="list">
       <ItemCard
         v-for="item in groupBuys"
@@ -22,11 +23,13 @@
       </ItemCard>
     </div>
   </section>
+  <EmptyState v-if="groupBuys.length === 0" text="暂无团购记录" />
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import ItemCard from '../components/ItemCard.vue'
+import EmptyState from '../components/EmptyState.vue'
 import { getGroupBuys, type GroupBuyItem } from '../api/groupBuy'
 
 const groupBuys = ref<GroupBuyItem[]>([])

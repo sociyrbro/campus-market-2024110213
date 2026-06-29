@@ -5,6 +5,8 @@
       <p>发布寻物启事或失物信息，帮助同学找回遗失物品。</p>
     </div>
 
+    <EmptyState v-if="lostFounds.length === 0" text="暂无失物招领记录" />
+
     <div class="list">
       <ItemCard
         v-for="item in lostFounds"
@@ -27,6 +29,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import ItemCard from '../components/ItemCard.vue'
+import EmptyState from '../components/EmptyState.vue'
 import { getLostFounds, type LostFoundItem } from '../api/lostFound'
 
 const lostFounds = ref<LostFoundItem[]>([])

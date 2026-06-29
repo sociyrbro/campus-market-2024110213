@@ -5,6 +5,8 @@
       <p>发布或接取跑腿任务，互帮互助便捷校园生活。</p>
     </div>
 
+    <EmptyState v-if="errands.length === 0" text="暂无代跑代办记录" />
+
     <div class="list">
       <ItemCard
         v-for="item in errands"
@@ -27,6 +29,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import ItemCard from '../components/ItemCard.vue'
+import EmptyState from '../components/EmptyState.vue'
 import { getErrands, type ErrandItem } from '../api/errand'
 
 const errands = ref<ErrandItem[]>([])

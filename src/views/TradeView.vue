@@ -5,6 +5,8 @@
       <p>浏览同学发布的闲置物品，发现校园内的实用好物。</p>
     </div>
 
+    <EmptyState v-if="trades.length === 0" text="暂无交易记录" />
+
     <div class="list">
       <ItemCard
         v-for="item in trades"
@@ -27,6 +29,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import ItemCard from '../components/ItemCard.vue'
+import EmptyState from '../components/EmptyState.vue'
 import { getTrades, type TradeItem } from '../api/trade'
 
 const trades = ref<TradeItem[]>([])
