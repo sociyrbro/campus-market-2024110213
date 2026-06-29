@@ -5,7 +5,10 @@
   "type": "module",
   "packageManager": "pnpm@11.9.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "run-p dev:frontend dev:mock",
+    "dev:frontend": "vite",
+    "dev:mock": "json-server --watch db.json --port 3001",
+    "mock": "json-server --watch db.json --port 3001",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
