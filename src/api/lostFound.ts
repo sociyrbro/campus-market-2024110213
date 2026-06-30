@@ -15,6 +15,6 @@ export interface LostFoundItem {
 export function getLostFounds() {
   return http.get<LostFoundItem[]>('/lostFounds')
 }
-export function createLostFound(data: LostFoundItem) {
+export function createLostFound(data: Omit<LostFoundItem, 'id'>) {
   return http.post<LostFoundItem>('/lostFounds', data)
 }
