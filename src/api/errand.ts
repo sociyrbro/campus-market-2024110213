@@ -16,3 +16,6 @@ export interface ErrandItem {
 export function getErrands() {
   return http.get<ErrandItem[]>('/errands')
 }
+export function createErrand(data: ErrandItem) {
+  return http.post<ErrandItem>('/errands', data)
+}
