@@ -20,6 +20,8 @@
         <template #footer>
           <strong>{{ item.currentCount }}/{{ item.targetCount }} 人</strong>
           <span class="status">{{ item.status === 'open' ? '招募中' : '已结束' }}</span>
+        </template>
+        <template #favorite>
           <button class="favorite-btn" @click="favoriteStore.toggleFavorite({
             id: item.id,
             type: 'groupBuy',
@@ -85,7 +87,6 @@ onMounted(async () => {
 }
 
 .favorite-btn {
-  margin-left: 12px;
   border: none;
   border-radius: 999px;
   padding: 6px 12px;

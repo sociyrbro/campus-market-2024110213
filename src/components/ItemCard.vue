@@ -15,6 +15,10 @@
     <div v-if="$slots.footer" class="footer">
       <slot name="footer" />
     </div>
+
+    <div v-if="$slots.favorite" class="favorite-wrapper">
+      <slot name="favorite" />
+    </div>
   </article>
 </template>
 
@@ -34,6 +38,7 @@ defineProps<{
   border-radius: 12px;
   background: #fff;
   border: 1px solid #e5e7eb;
+  position: relative;
 }
 
 .item-card__header {
@@ -71,5 +76,11 @@ defineProps<{
 
 .footer {
   margin-top: 12px;
+}
+
+.favorite-wrapper {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
 }
 </style>

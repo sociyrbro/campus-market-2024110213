@@ -20,6 +20,8 @@
         <template #footer>
           <strong>￥{{ item.reward }}</strong>
           <span class="route">{{ item.from }} → {{ item.to }}</span>
+        </template>
+        <template #favorite>
           <button class="favorite-btn" @click="favoriteStore.toggleFavorite({
             id: item.id,
             type: 'errand',
@@ -85,7 +87,6 @@ onMounted(async () => {
 }
 
 .favorite-btn {
-  margin-left: 12px;
   border: none;
   border-radius: 999px;
   padding: 6px 12px;
