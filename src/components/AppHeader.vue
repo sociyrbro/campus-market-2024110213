@@ -1,5 +1,6 @@
 <template>
   <header class="app-header">
+    
     <div class="header-left">
       <div class="logo">
         <span class="logo-icon">🎓</span>
@@ -26,7 +27,11 @@
         <el-icon><Setting /></el-icon>
       </el-button>
     </div>
+    <div class="user-mini">
+      <span>{{ userStore.displayName }}</span>
+    </div>
   </header>
+  
 </template>
 
 <script setup lang="ts">
@@ -34,6 +39,9 @@ import { ref } from 'vue'
 import AppNav from './AppNav.vue'
 
 const searchQuery = ref('')
+import { useUserStore } from '../stores/user'
+
+const userStore = useUserStore()
 </script>
 
 <style scoped>
@@ -91,5 +99,20 @@ const searchQuery = ref('')
 
 .header-btn:hover {
   color: #2e7d32;
+}
+
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.slogan {
+  font-size: 13px;
+  color: #6b7280;
+}
+.user-mini {
+  font-size: 14px;
+  color: #374151;
 }
 </style>

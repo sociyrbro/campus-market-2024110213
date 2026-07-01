@@ -49,6 +49,17 @@
       "contact": "站内消息联系",
       "status": "open",
       "description": "雨伞放在 A 区一楼值班室。"
+    },
+    {
+      "title": "手表遗失",
+      "type": "lost",
+      "itemName": "手表",
+      "location": "实验楼408",
+      "eventTime": "2026-06-12T13:32",
+      "contact": "站内消息联系",
+      "status": "open",
+      "description": "今天下课之后回来就没看到了",
+      "id": 3
     }
   ],
   "groupBuys": [
