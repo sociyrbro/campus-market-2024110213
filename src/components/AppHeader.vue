@@ -13,16 +13,6 @@
     </div>
 
     <div class="header-right">
-      <el-input
-        v-model="searchQuery"
-        placeholder="搜索商品..."
-        prefix-icon="Search"
-        class="search-input"
-        size="default"
-      />
-      <el-button circle class="header-btn">
-        <el-icon><Bell /></el-icon>
-      </el-button>
       <el-button circle class="header-btn">
         <el-icon><Setting /></el-icon>
       </el-button>

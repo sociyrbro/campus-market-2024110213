@@ -5,6 +5,11 @@
       <p>发布或接取跑腿任务，互帮互助便捷校园生活。</p>
     </div>
 
+    <SearchBar
+      v-model="keyword"
+      placeholder="搜索标题、任务类型、取件或送达地点"
+    />
+
     <LoadingState
       v-if="loading"
       text="正在加载代跑代办信息..."
@@ -18,13 +23,13 @@
     />
 
     <EmptyState
-      v-else-if="errands.length === 0"
-      text="暂无代跑代办记录"
+      v-else-if="filteredErrands.length === 0"
+      text="暂无符合条件的代跑代办记录"
     />
 
     <div v-else class="list">
       <ItemCard
-        v-for="item in errands"
+        v-for="item in filteredErrands"
         :key="item.id"
         :title="item.title"
         :description="item.description"
@@ -53,11 +58,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import EmptyState from '../components/EmptyState.vue'
 import ErrorState from '../components/ErrorState.vue'
 import ItemCard from '../components/ItemCard.vue'
 import LoadingState from '../components/LoadingState.vue'
+import SearchBar from '../components/SearchBar.vue'
 import { getErrands, type ErrandItem } from '../api/errand'
 import { useFavoriteStore } from '../stores/favorite'
 
@@ -65,6 +71,26 @@ const favoriteStore = useFavoriteStore()
 const errands = ref<ErrandItem[]>([])
 const loading = ref(false)
 const error = ref(false)
+
+const keyword = ref('')
+
+const filteredErrands = computed(() => {
+  const value = keyword.value.trim()
+
+  if (!value) {
+    return errands.value
+  }
+
+  return errands.value.filter((item) => {
+    return (
+      item.title.includes(value) ||
+      item.taskType.includes(value) ||
+      item.from.includes(value) ||
+      item.to.includes(value) ||
+      item.description.includes(value)
+    )
+  })
+})
 
 async function loadErrands() {
   loading.value = true

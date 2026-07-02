@@ -5,6 +5,19 @@
       <p>发布寻物启事或失物信息，帮助同学找回遗失物品。</p>
     </div>
 
+    <SearchBar
+      v-model="keyword"
+      placeholder="搜索标题、物品名称、地点或描述"
+    />
+
+    <div class="filter-bar">
+      <select v-model="typeFilter" class="filter-select">
+        <option value="">全部类型</option>
+        <option value="lost">寻物</option>
+        <option value="found">招领</option>
+      </select>
+    </div>
+
     <LoadingState
       v-if="loading"
       text="正在加载失物招领信息..."
@@ -18,13 +31,13 @@
     />
 
     <EmptyState
-      v-else-if="lostFounds.length === 0"
-      text="暂无失物招领记录"
+      v-else-if="filteredLostFounds.length === 0"
+      text="暂无符合条件的失物招领记录"
     />
-
+    
     <div v-else class="list">
       <ItemCard
-        v-for="item in lostFounds"
+        v-for="item in filteredLostFounds"
         :key="item.id"
         :title="item.title"
         :description="item.description"
@@ -53,11 +66,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import EmptyState from '../components/EmptyState.vue'
 import ErrorState from '../components/ErrorState.vue'
 import ItemCard from '../components/ItemCard.vue'
 import LoadingState from '../components/LoadingState.vue'
+import SearchBar from '../components/SearchBar.vue'
 import { getLostFounds, type LostFoundItem } from '../api/lostFound'
 import { useFavoriteStore } from '../stores/favorite'
 
@@ -65,6 +79,25 @@ const favoriteStore = useFavoriteStore()
 const lostFounds = ref<LostFoundItem[]>([])
 const loading = ref(false)
 const error = ref(false)
+
+const keyword = ref('')
+const typeFilter = ref('')
+
+const filteredLostFounds = computed(() => {
+  const value = keyword.value.trim()
+
+  return lostFounds.value.filter((item) => {
+    const matchType = !typeFilter.value || item.type === typeFilter.value
+    const matchKeyword =
+      !value ||
+      item.title.includes(value) ||
+      item.itemName.includes(value) ||
+      item.location.includes(value) ||
+      item.description.includes(value)
+
+    return matchType && matchKeyword
+  })
+})
 
 async function loadLostFounds() {
   loading.value = true
@@ -130,5 +163,18 @@ onMounted(() => {
   cursor: pointer;
   background: #f3f4f6;
   color: #374151;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 12px;
+}
+
+.filter-select {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  cursor: pointer;
 }
 </style>

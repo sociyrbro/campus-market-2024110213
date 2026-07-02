@@ -4,6 +4,18 @@
       <h1>二手交易</h1>
       <p>浏览同学发布的闲置物品，发现校园内的实用好物。</p>
     </div>
+<SearchBar
+      v-model="keyword"
+      placeholder="搜索商品标题、分类、地点或描述"
+    />
+
+    <div class="filter-bar">
+      <select v-model="categoryFilter" class="filter-select">
+        <option value="">全部分类</option>
+        <option value="数码配件">数码配件</option>
+        <option value="教材资料">教材资料</option>
+      </select>
+    </div>
 
     <LoadingState
       v-if="loading"
@@ -39,6 +51,7 @@
       </ItemCard>
     </div>
   </section>
+  
 </template>
 
 <script setup lang="ts">
@@ -49,27 +62,27 @@ import ErrorState from '../components/ErrorState.vue'
 import ItemCard from '../components/ItemCard.vue'
 import LoadingState from '../components/LoadingState.vue'
 import { getTrades, type TradeItem } from '../api/trade'
-
+import SearchBar from '../components/SearchBar.vue'
 const trades = ref<TradeItem[]>([])
 const loading = ref(false)
 const error = ref(false)
 
 const keyword = ref('')
+const categoryFilter = ref('')
 
 const filteredTrades = computed(() => {
   const value = keyword.value.trim()
 
-  if (!value) {
-    return trades.value
-  }
-
   return trades.value.filter((item) => {
-    return (
+    const matchCategory = !categoryFilter.value || item.category === categoryFilter.value
+    const matchKeyword =
+      !value ||
       item.title.includes(value) ||
       item.category.includes(value) ||
       item.location.includes(value) ||
       item.description.includes(value)
-    )
+
+    return matchCategory && matchKeyword
   })
 })
 
@@ -132,5 +145,18 @@ onMounted(() => {
 .condition {
   margin-left: 12px;
   color: #6b7280;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 12px;
+}
+
+.filter-select {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  cursor: pointer;
 }
 </style>

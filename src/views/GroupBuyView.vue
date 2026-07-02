@@ -5,6 +5,11 @@
       <p>发起或加入团购，与同学一起享受优惠。</p>
     </div>
 
+    <SearchBar
+      v-model="keyword"
+      placeholder="搜索标题、类型、地点或描述"
+    />
+
     <LoadingState
       v-if="loading"
       text="正在加载团购信息..."
@@ -18,13 +23,13 @@
     />
 
     <EmptyState
-      v-else-if="groupBuys.length === 0"
-      text="暂无团购记录"
+      v-else-if="filteredGroupBuys.length === 0"
+      text="暂无符合条件的团购记录"
     />
 
     <div v-else class="list">
       <ItemCard
-        v-for="item in groupBuys"
+        v-for="item in filteredGroupBuys"
         :key="item.id"
         :title="item.title"
         :description="item.description"
@@ -53,11 +58,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import EmptyState from '../components/EmptyState.vue'
 import ErrorState from '../components/ErrorState.vue'
 import ItemCard from '../components/ItemCard.vue'
 import LoadingState from '../components/LoadingState.vue'
+import SearchBar from '../components/SearchBar.vue'
 import { getGroupBuys, type GroupBuyItem } from '../api/groupBuy'
 import { useFavoriteStore } from '../stores/favorite'
 
@@ -65,6 +71,25 @@ const favoriteStore = useFavoriteStore()
 const groupBuys = ref<GroupBuyItem[]>([])
 const loading = ref(false)
 const error = ref(false)
+
+const keyword = ref('')
+
+const filteredGroupBuys = computed(() => {
+  const value = keyword.value.trim()
+
+  if (!value) {
+    return groupBuys.value
+  }
+
+  return groupBuys.value.filter((item) => {
+    return (
+      item.title.includes(value) ||
+      item.type.includes(value) ||
+      item.location.includes(value) ||
+      item.description.includes(value)
+    )
+  })
+})
 
 async function loadGroupBuys() {
   loading.value = true
