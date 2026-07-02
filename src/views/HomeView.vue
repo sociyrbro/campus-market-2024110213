@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="hero-image">
-        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20campus%20life%20illustration%20with%20students%20exchanging%20goods%20green%20fresh%20style%20minimalist%20flat%20design&image_size=landscape_16_9" alt="校园生活" />
+        <img src="/963ce9be60aba86cc4fa721c794f4367.jpg" alt="校园风景" />
       </div>
     </section>
 
@@ -78,46 +78,7 @@
       </div>
     </section>
 
-    <section class="quick-actions">
-      <h2>快捷入口</h2>
-      <div class="action-grid">
-        <div class="action-card" @click="$router.push('/publish')">
-          <div class="action-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-          </div>
-          <span>发布信息</span>
-        </div>
-        <div class="action-card" @click="$router.push('/user')">
-          <div class="action-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </div>
-          <span>个人中心</span>
-        </div>
-        <div class="action-card" @click="$router.push('/trade')">
-          <div class="action-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="16 21l-5-5-4 4-3-3-4 4"></line>
-              <circle cx="16" cy="5" r="1"></circle>
-            </svg>
-          </div>
-          <span>全部商品</span>
-        </div>
-        <div class="action-card" @click="$router.push('/message')">
-          <div class="action-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-            </svg>
-          </div>
-          <span>消息中心</span>
-        </div>
-      </div>
-    </section>
+    
 
     <section class="tips">
       <div class="tip-card">
