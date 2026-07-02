@@ -5,11 +5,26 @@
       <p>浏览同学发布的闲置物品，发现校园内的实用好物。</p>
     </div>
 
-    <EmptyState v-if="trades.length === 0" text="暂无交易记录" />
+    <LoadingState
+      v-if="loading"
+      text="正在加载二手交易信息..."
+    />
 
-    <div class="list">
+    <ErrorState
+      v-else-if="error"
+      message="二手交易数据加载失败，请检查 Mock 服务是否正常运行。"
+      show-retry
+      @retry="loadTrades"
+    />
+
+    <EmptyState
+      v-else-if="filteredTrades.length === 0"
+      text="暂无符合条件的二手交易信息"
+    />
+
+    <div v-else class="list">
       <ItemCard
-        v-for="item in trades"
+        v-for="item in filteredTrades"
         :key="item.id"
         :title="item.title"
         :description="item.description"
@@ -18,38 +33,63 @@
         :time="item.publishTime"
       >
         <template #footer>
-  <strong>￥{{ item.price }}</strong>
-  <span class="condition">{{ item.condition }}</span>
-</template>
-<template #favorite>
-  <button class="favorite-btn" @click="favoriteStore.toggleFavorite({
-    id: item.id,
-    type: 'trade',
-    title: item.title,
-    description: item.description,
-    location: item.location
-  })">
-    {{ favoriteStore.isFavorite('trade', item.id) ? '已收藏' : '收藏' }}
-  </button>
-</template>
+          <strong>￥{{ item.price }}</strong>
+          <span class="condition">{{ item.condition }}</span>
+        </template>
       </ItemCard>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import ItemCard from '../components/ItemCard.vue'
+import { computed, onMounted, ref } from 'vue'
+
 import EmptyState from '../components/EmptyState.vue'
+import ErrorState from '../components/ErrorState.vue'
+import ItemCard from '../components/ItemCard.vue'
+import LoadingState from '../components/LoadingState.vue'
 import { getTrades, type TradeItem } from '../api/trade'
-import { useFavoriteStore } from '../stores/favorite'
 
-const favoriteStore = useFavoriteStore()
 const trades = ref<TradeItem[]>([])
+const loading = ref(false)
+const error = ref(false)
 
-onMounted(async () => {
-  const res = await getTrades()
-  trades.value = res.data
+const keyword = ref('')
+
+const filteredTrades = computed(() => {
+  const value = keyword.value.trim()
+
+  if (!value) {
+    return trades.value
+  }
+
+  return trades.value.filter((item) => {
+    return (
+      item.title.includes(value) ||
+      item.category.includes(value) ||
+      item.location.includes(value) ||
+      item.description.includes(value)
+    )
+  })
+})
+
+async function loadTrades() {
+  loading.value = true
+  error.value = false
+
+  try {
+    const res = await getTrades()
+    trades.value = res.data
+  } catch (err) {
+    console.error(err)
+    error.value = true
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  loadTrades()
 })
 </script>
 

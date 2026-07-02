@@ -5,9 +5,24 @@
       <p>发起或加入团购，与同学一起享受优惠。</p>
     </div>
 
-    <EmptyState v-if="groupBuys.length === 0" text="暂无团购记录" />
+    <LoadingState
+      v-if="loading"
+      text="正在加载团购信息..."
+    />
 
-    <div class="list">
+    <ErrorState
+      v-else-if="error"
+      message="团购数据加载失败，请检查 Mock 服务是否正常运行。"
+      show-retry
+      @retry="loadGroupBuys"
+    />
+
+    <EmptyState
+      v-else-if="groupBuys.length === 0"
+      text="暂无团购记录"
+    />
+
+    <div v-else class="list">
       <ItemCard
         v-for="item in groupBuys"
         :key="item.id"
@@ -39,17 +54,35 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import ItemCard from '../components/ItemCard.vue'
 import EmptyState from '../components/EmptyState.vue'
+import ErrorState from '../components/ErrorState.vue'
+import ItemCard from '../components/ItemCard.vue'
+import LoadingState from '../components/LoadingState.vue'
 import { getGroupBuys, type GroupBuyItem } from '../api/groupBuy'
 import { useFavoriteStore } from '../stores/favorite'
 
 const favoriteStore = useFavoriteStore()
 const groupBuys = ref<GroupBuyItem[]>([])
+const loading = ref(false)
+const error = ref(false)
 
-onMounted(async () => {
-  const res = await getGroupBuys()
-  groupBuys.value = res.data
+async function loadGroupBuys() {
+  loading.value = true
+  error.value = false
+
+  try {
+    const res = await getGroupBuys()
+    groupBuys.value = res.data
+  } catch (err) {
+    console.error(err)
+    error.value = true
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  loadGroupBuys()
 })
 </script>
 

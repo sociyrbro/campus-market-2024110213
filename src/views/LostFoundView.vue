@@ -5,9 +5,24 @@
       <p>发布寻物启事或失物信息，帮助同学找回遗失物品。</p>
     </div>
 
-    <EmptyState v-if="lostFounds.length === 0" text="暂无失物招领记录" />
+    <LoadingState
+      v-if="loading"
+      text="正在加载失物招领信息..."
+    />
 
-    <div class="list">
+    <ErrorState
+      v-else-if="error"
+      message="失物招领数据加载失败，请检查 Mock 服务是否正常运行。"
+      show-retry
+      @retry="loadLostFounds"
+    />
+
+    <EmptyState
+      v-else-if="lostFounds.length === 0"
+      text="暂无失物招领记录"
+    />
+
+    <div v-else class="list">
       <ItemCard
         v-for="item in lostFounds"
         :key="item.id"
@@ -39,17 +54,35 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import ItemCard from '../components/ItemCard.vue'
 import EmptyState from '../components/EmptyState.vue'
+import ErrorState from '../components/ErrorState.vue'
+import ItemCard from '../components/ItemCard.vue'
+import LoadingState from '../components/LoadingState.vue'
 import { getLostFounds, type LostFoundItem } from '../api/lostFound'
 import { useFavoriteStore } from '../stores/favorite'
 
 const favoriteStore = useFavoriteStore()
 const lostFounds = ref<LostFoundItem[]>([])
+const loading = ref(false)
+const error = ref(false)
 
-onMounted(async () => {
-  const res = await getLostFounds()
-  lostFounds.value = res.data
+async function loadLostFounds() {
+  loading.value = true
+  error.value = false
+
+  try {
+    const res = await getLostFounds()
+    lostFounds.value = res.data
+  } catch (err) {
+    console.error(err)
+    error.value = true
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  loadLostFounds()
 })
 </script>
 
