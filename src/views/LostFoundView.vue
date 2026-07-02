@@ -52,16 +52,16 @@
         <template #favorite>
           <button
   class="favorite-btn"
-  :class="{ active: favoriteStore.isFavorite('trade', item.id) }"
+  :class="{ active: favoriteStore.isFavorite('lostFound', item.id) }"
   @click="favoriteStore.toggleFavorite({
     id: item.id,
-    type: 'trade',
+    type: 'lostFound',
     title: item.title,
     description: item.description,
     location: item.location
-  })"
+  }, userStore.currentUser?.id || 0)"
 >
-  {{ favoriteStore.isFavorite('trade', item.id) ? '已收藏' : '收藏' }}
+  {{ favoriteStore.isFavorite('lostFound', item.id) ? '已收藏' : '收藏' }}
 </button>
         </template>
       </ItemCard>
@@ -78,8 +78,10 @@ import LoadingState from '../components/LoadingState.vue'
 import SearchBar from '../components/SearchBar.vue'
 import { getLostFounds, type LostFoundItem } from '../api/lostFound'
 import { useFavoriteStore } from '../stores/favorite'
+import { useUserStore } from '../stores/user'
 
 const favoriteStore = useFavoriteStore()
+const userStore = useUserStore()
 const lostFounds = ref<LostFoundItem[]>([])
 const loading = ref(false)
 const error = ref(false)

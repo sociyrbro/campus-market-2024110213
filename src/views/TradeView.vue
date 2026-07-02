@@ -58,7 +58,7 @@
               title: item.title,
               description: item.description,
               location: item.location
-            })"
+            }, userStore.currentUser?.id || 0)"
           >
             {{ favoriteStore.isFavorite('trade', item.id) ? '已收藏' : '收藏' }}
           </button>
@@ -79,8 +79,10 @@ import LoadingState from '../components/LoadingState.vue'
 import { getTrades, type TradeItem } from '../api/trade'
 import SearchBar from '../components/SearchBar.vue'
 import { useFavoriteStore } from '../stores/favorite'
+import { useUserStore } from '../stores/user'
 
 const favoriteStore = useFavoriteStore()
+const userStore = useUserStore()
 const trades = ref<TradeItem[]>([])
 const loading = ref(false)
 const error = ref(false)

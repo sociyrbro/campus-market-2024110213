@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
+import { getFavoritesByUserId, createFavorite, deleteFavorite, type FavoriteItem } from '../api/favorite'
 
-export interface FavoriteItem {
+export interface LocalFavorite {
   id: number
   type: 'trade' | 'lostFound' | 'groupBuy' | 'errand'
   title: string
@@ -10,7 +11,8 @@ export interface FavoriteItem {
 
 export const useFavoriteStore = defineStore('favorite', {
   state: () => ({
-    favorites: [] as FavoriteItem[],
+    favorites: [] as LocalFavorite[],
+    serverFavorites: [] as FavoriteItem[],
   }),
 
   getters: {
@@ -18,30 +20,81 @@ export const useFavoriteStore = defineStore('favorite', {
   },
 
   actions: {
-    isFavorite(type: FavoriteItem['type'], id: number) {
+    isFavorite(type: LocalFavorite['type'], id: number) {
       return this.favorites.some((item) => item.type === type && item.id === id)
     },
 
-    addFavorite(item: FavoriteItem) {
-      const exists = this.isFavorite(item.type, item.id)
-
-      if (!exists) {
-        this.favorites.push(item)
+    async loadFavorites(userId: number) {
+      try {
+        const res = await getFavoritesByUserId(userId)
+        const data = res.data as unknown as FavoriteItem[]
+        this.serverFavorites = data
+        this.favorites = data.map((item) => ({
+          id: item.itemId,
+          type: item.type,
+          title: item.title,
+          description: item.description,
+          location: item.location,
+        }))
+      } catch (error) {
+        console.error('加载收藏失败:', error)
+        this.favorites = []
+        this.serverFavorites = []
       }
     },
 
-    removeFavorite(type: FavoriteItem['type'], id: number) {
+    async addFavorite(item: LocalFavorite, userId: number) {
+      const exists = this.isFavorite(item.type, item.id)
+
+      if (!exists) {
+        try {
+          const res = await createFavorite({
+            userId,
+            itemId: item.id,
+            type: item.type,
+            title: item.title,
+            description: item.description,
+            location: item.location,
+          })
+          const data = res.data as unknown as FavoriteItem
+          this.serverFavorites.push(data)
+          this.favorites.push(item)
+        } catch (error) {
+          console.error('添加收藏失败:', error)
+        }
+      }
+    },
+
+    async removeFavorite(type: LocalFavorite['type'], id: number) {
+      const serverItem = this.serverFavorites.find(
+        (item) => item.type === type && item.itemId === id
+      )
+
+      if (serverItem) {
+        try {
+          await deleteFavorite(serverItem.id)
+          this.serverFavorites = this.serverFavorites.filter((item) => item.id !== serverItem.id)
+        } catch (error) {
+          console.error('删除收藏失败:', error)
+        }
+      }
+
       this.favorites = this.favorites.filter((item) => {
         return !(item.type === type && item.id === id)
       })
     },
 
-    toggleFavorite(item: FavoriteItem) {
+    async toggleFavorite(item: LocalFavorite, userId: number) {
       if (this.isFavorite(item.type, item.id)) {
-        this.removeFavorite(item.type, item.id)
+        await this.removeFavorite(item.type, item.id)
       } else {
-        this.addFavorite(item)
+        await this.addFavorite(item, userId)
       }
+    },
+
+    clearFavorites() {
+      this.favorites = []
+      this.serverFavorites = []
     },
   },
 })

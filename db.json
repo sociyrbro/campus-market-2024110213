@@ -1,4 +1,33 @@
 {
+  "favorites": [
+    {
+      "userId": 2,
+      "itemId": 2,
+      "type": "errand",
+      "title": "帮买一份晚餐",
+      "description": "需要在 18:30 前送到。",
+      "location": "实验楼 302",
+      "id": 1
+    },
+    {
+      "userId": 2,
+      "itemId": 1,
+      "type": "lostFound",
+      "title": "寻找黑色校园卡",
+      "description": "校园卡卡套为黑色，内有学生证。",
+      "location": "一食堂附近",
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "itemId": 2,
+      "type": "groupBuy",
+      "title": "四六级资料团购",
+      "description": "达到人数后统一下单。",
+      "location": "线上确认",
+      "id": 3
+    }
+  ],
   "users": [
     {
       "id": 1,
@@ -9,6 +38,16 @@
       "grade": "2023级",
       "avatar": "",
       "bio": "热爱校园生活，喜欢分享闲置好物。"
+    },
+    {
+      "username": "sociyrbro",
+      "password": "glj5817",
+      "name": "郭理杰",
+      "college": "计算机科学学院",
+      "grade": "2024级",
+      "avatar": "",
+      "bio": "这个同学还没有填写个人简介。",
+      "id": 2
     }
   ],
   "trades": [
@@ -37,6 +76,19 @@
       "image": "",
       "status": "open",
       "description": "教材有少量笔记，不影响使用。"
+    },
+    {
+      "title": "出篮球",
+      "category": "生活用品",
+      "price": 30,
+      "condition": "正常使用痕迹",
+      "location": "操场",
+      "publisher": "校园用户",
+      "publishTime": "2026-07-02 07:35",
+      "image": "",
+      "status": "open",
+      "description": "出篮球一个",
+      "id": 3
     }
   ],
   "lostFounds": [

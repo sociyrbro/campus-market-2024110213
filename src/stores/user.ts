@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { getUsers, type User } from '../api/user'
+import { useFavoriteStore } from './favorite'
 
 const STORAGE_KEY = 'campus-market-current-user'
 
@@ -35,6 +36,9 @@ export const useUserStore = defineStore('user', {
       this.currentUser = user
       this.isLoggedIn = true
       localStorage.setItem(STORAGE_KEY, JSON.stringify(user))
+
+      const favoriteStore = useFavoriteStore()
+      await favoriteStore.loadFavorites(user.id as number)
     },
 
     restoreLogin() {
@@ -47,6 +51,9 @@ export const useUserStore = defineStore('user', {
       try {
         this.currentUser = JSON.parse(raw)
         this.isLoggedIn = true
+
+        const favoriteStore = useFavoriteStore()
+        favoriteStore.loadFavorites((this.currentUser?.id as number) || 0)
       } catch (error) {
         console.error(error)
         localStorage.removeItem(STORAGE_KEY)
@@ -54,6 +61,9 @@ export const useUserStore = defineStore('user', {
     },
 
     logout() {
+      const favoriteStore = useFavoriteStore()
+      favoriteStore.clearFavorites()
+
       this.currentUser = null
       this.isLoggedIn = false
       localStorage.removeItem(STORAGE_KEY)

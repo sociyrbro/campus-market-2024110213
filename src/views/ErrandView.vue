@@ -44,16 +44,16 @@
         <template #favorite>
           <button
   class="favorite-btn"
-  :class="{ active: favoriteStore.isFavorite('trade', item.id) }"
+  :class="{ active: favoriteStore.isFavorite('errand', item.id) }"
   @click="favoriteStore.toggleFavorite({
     id: item.id,
-    type: 'trade',
+    type: 'errand',
     title: item.title,
     description: item.description,
     location: item.to
-  })"
+  }, userStore.currentUser?.id || 0)"
 >
-  {{ favoriteStore.isFavorite('trade', item.id) ? '已收藏' : '收藏' }}
+  {{ favoriteStore.isFavorite('errand', item.id) ? '已收藏' : '收藏' }}
 </button>
         </template>
       </ItemCard>
@@ -70,8 +70,10 @@ import LoadingState from '../components/LoadingState.vue'
 import SearchBar from '../components/SearchBar.vue'
 import { getErrands, type ErrandItem } from '../api/errand'
 import { useFavoriteStore } from '../stores/favorite'
+import { useUserStore } from '../stores/user'
 
 const favoriteStore = useFavoriteStore()
+const userStore = useUserStore()
 const errands = ref<ErrandItem[]>([])
 const loading = ref(false)
 const error = ref(false)

@@ -44,16 +44,16 @@
         <template #favorite>
           <button
   class="favorite-btn"
-  :class="{ active: favoriteStore.isFavorite('trade', item.id) }"
+  :class="{ active: favoriteStore.isFavorite('groupBuy', item.id) }"
   @click="favoriteStore.toggleFavorite({
     id: item.id,
-    type: 'trade',
+    type: 'groupBuy',
     title: item.title,
     description: item.description,
     location: item.location
-  })"
+  }, userStore.currentUser?.id || 0)"
 >
-  {{ favoriteStore.isFavorite('trade', item.id) ? '已收藏' : '收藏' }}
+  {{ favoriteStore.isFavorite('groupBuy', item.id) ? '已收藏' : '收藏' }}
 </button>
         </template>
       </ItemCard>
@@ -70,8 +70,10 @@ import LoadingState from '../components/LoadingState.vue'
 import SearchBar from '../components/SearchBar.vue'
 import { getGroupBuys, type GroupBuyItem } from '../api/groupBuy'
 import { useFavoriteStore } from '../stores/favorite'
+import { useUserStore } from '../stores/user'
 
 const favoriteStore = useFavoriteStore()
+const userStore = useUserStore()
 const groupBuys = ref<GroupBuyItem[]>([])
 const loading = ref(false)
 const error = ref(false)
