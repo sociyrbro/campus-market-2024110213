@@ -112,6 +112,7 @@
 </template>
 
 <script setup lang="ts">
+
 import { reactive, ref } from 'vue'
   import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
@@ -124,7 +125,7 @@ import { useUserStore } from '../stores/user'
   import { createErrand } from '../api/errand'
 
   type PublishType = 'trade' | 'lostFound' | 'groupBuy' | 'errand'
-const userStore = useUserStore()
+  const userStore = useUserStore()
   const router = useRouter()
   const publishType = ref<PublishType>('trade')
   const submitting = ref(false)
@@ -230,6 +231,12 @@ function getCurrentTime() {
 }
 
 async function handleSubmit() {
+  if (!userStore.isLoggedIn || !userStore.currentUser) {
+    window.alert('请先登录后再发布信息')
+    router.push('/login')
+    return
+  }
+
   if (!validateForm()) {
     return
   }

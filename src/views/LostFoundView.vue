@@ -124,6 +124,20 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.favorite-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.favorite-btn.active {
+  background: #ffffdc;
+  color: #c5c20d;
+}
+
 .page {
   display: flex;
   flex-direction: column;
@@ -151,22 +165,9 @@ onMounted(() => {
   gap: 16px;
 }
 
-.item-name {
-  font-weight: 500;
-}
-
-.contact {
+.condition {
   margin-left: 12px;
   color: #6b7280;
-}
-
-.favorite-btn {
-  border: none;
-  border-radius: 999px;
-  padding: 6px 12px;
-  cursor: pointer;
-  background: #f3f4f6;
-  color: #374151;
 }
 
 .filter-bar {
@@ -174,18 +175,11 @@ onMounted(() => {
   gap: 12px;
 }
 
-.favorite-btn {
-  margin-left: 12px;
-  border: none;
-  border-radius: 999px;
-  padding: 6px 12px;
+.filter-select {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
   cursor: pointer;
-  background: #f3f4f6;
-  color: #374151;
-}
-
-.favorite-btn.active {
-  background: #ffffdc;
-  color: #c5c20d;
 }
 </style>

@@ -1,108 +1,86 @@
 <template>
   <header class="app-header">
-    
-    <div class="header-left">
-      <div class="logo">
-        <span class="logo-icon">🎓</span>
-        <span class="logo-text">校园市集</span>
-      </div>
+    <div class="brand">
+      <span class="logo">校园轻集市</span>
+      <span class="slogan">轻量、可信、面向校园生活</span>
     </div>
 
-    <div class="header-center">
-      <AppNav />
-    </div>
+    <AppNav />
 
-    <div class="header-right">
-      <el-button circle class="header-btn">
-        <el-icon><Setting /></el-icon>
-      </el-button>
-    </div>
-    <div class="user-mini">
-      <span>{{ userStore.displayName }}</span>
+    <div class="user-actions">
+      <template v-if="userStore.isLoggedIn">
+        <RouterLink to="/user">{{ userStore.displayName }}</RouterLink>
+        <button type="button" @click="handleLogout">退出</button>
+      </template>
+
+      <template v-else>
+        <RouterLink to="/login">登录</RouterLink>
+        <RouterLink to="/register">注册</RouterLink>
+      </template>
     </div>
   </header>
-  
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import AppNav from './AppNav.vue'
+import { useRouter } from 'vue-router'
 
-const searchQuery = ref('')
+import AppNav from './AppNav.vue'
 import { useUserStore } from '../stores/user'
 
+const router = useRouter()
 const userStore = useUserStore()
+
+function handleLogout() {
+  userStore.logout()
+  router.push('/login')
+}
 </script>
 
 <style scoped>
 .app-header {
+  height: 64px;
+  padding: 0 32px;
+  border-bottom: 1px solid #e5e7eb;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
-  padding: 0 24px;
-  background: #ffffff;
-  border-bottom: 1px solid #e8e8e8;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  background: #fff;
 }
-
-.header-left {
-  flex: 0 0 auto;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.logo-icon {
-  font-size: 24px;
-}
-
-.logo-text {
-  font-size: 18px;
-  font-weight: 600;
-  color: #2e7d32;
-}
-
-.header-center {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.header-right {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.search-input {
-  width: 240px;
-}
-
-.header-btn {
-  color: #666;
-}
-
-.header-btn:hover {
-  color: #2e7d32;
-}
-
 
 .brand {
   display: flex;
   align-items: baseline;
   gap: 12px;
 }
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+}
+
 .slogan {
   font-size: 13px;
   color: #6b7280;
 }
-.user-mini {
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 14px;
+}
+
+.user-actions a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.user-actions button {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  background: #f3f4f6;
   color: #374151;
 }
 </style>

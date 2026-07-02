@@ -1,18 +1,25 @@
 <template>
   <section class="page">
-    <div class="profile-card">
-      <div class="avatar">
-        {{ userStore.displayName.slice(0, 1) }}
-      </div>
-
-      <div>
-        <h1>{{ userStore.displayName }}</h1>
-        <p>{{ userStore.userDescription }}</p>
-        <p>{{ userStore.currentUser.bio }}</p>
-      </div>
+    <div v-if="!userStore.isLoggedIn" class="panel">
+      <h1>请先登录</h1>
+      <p>登录后可以查看个人资料、我的收藏和我的发布。</p>
+      <RouterLink class="login-link" to="/login">去登录</RouterLink>
     </div>
 
-    <div class="panel">
+    <template v-else>
+      <div class="profile-card">
+        <div class="avatar">
+          {{ userStore.displayName.slice(0, 1) }}
+        </div>
+
+        <div>
+          <h1>{{ userStore.displayName }}</h1>
+          <p>{{ userStore.userDescription }}</p>
+          <p>{{ userStore.currentUser?.bio }}</p>
+        </div>
+      </div>
+
+     <div class="panel">
       <h2>我的收藏</h2>
 
       <EmptyState
@@ -44,6 +51,7 @@
         本模块用于展示当前用户发布过的信息。Day5 阶段可先完成结构展示，后续可继续与接口数据联动。
       </p>
     </div>
+    </template>
   </section>
 </template>
 
