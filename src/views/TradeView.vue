@@ -48,6 +48,21 @@
           <strong>￥{{ item.price }}</strong>
           <span class="condition">{{ item.condition }}</span>
         </template>
+        <template #favorite>
+          <button
+            class="favorite-btn"
+            :class="{ active: favoriteStore.isFavorite('trade', item.id) }"
+            @click="favoriteStore.toggleFavorite({
+              id: item.id,
+              type: 'trade',
+              title: item.title,
+              description: item.description,
+              location: item.location
+            })"
+          >
+            {{ favoriteStore.isFavorite('trade', item.id) ? '已收藏' : '收藏' }}
+          </button>
+        </template>
       </ItemCard>
     </div>
   </section>
@@ -63,6 +78,9 @@ import ItemCard from '../components/ItemCard.vue'
 import LoadingState from '../components/LoadingState.vue'
 import { getTrades, type TradeItem } from '../api/trade'
 import SearchBar from '../components/SearchBar.vue'
+import { useFavoriteStore } from '../stores/favorite'
+
+const favoriteStore = useFavoriteStore()
 const trades = ref<TradeItem[]>([])
 const loading = ref(false)
 const error = ref(false)
@@ -115,6 +133,12 @@ onMounted(() => {
   background: #f3f4f6;
   color: #374151;
 }
+
+.favorite-btn.active {
+  background: #ffffdc;
+  color: #c5c20d;
+}
+
 .page {
   display: flex;
   flex-direction: column;

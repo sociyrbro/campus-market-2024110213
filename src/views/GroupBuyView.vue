@@ -42,15 +42,19 @@
           <span class="status">{{ item.status === 'open' ? '招募中' : '已结束' }}</span>
         </template>
         <template #favorite>
-          <button class="favorite-btn" @click="favoriteStore.toggleFavorite({
-            id: item.id,
-            type: 'groupBuy',
-            title: item.title,
-            description: item.description,
-            location: item.location
-          })">
-            {{ favoriteStore.isFavorite('groupBuy', item.id) ? '已收藏' : '收藏' }}
-          </button>
+          <button
+  class="favorite-btn"
+  :class="{ active: favoriteStore.isFavorite('trade', item.id) }"
+  @click="favoriteStore.toggleFavorite({
+    id: item.id,
+    type: 'trade',
+    title: item.title,
+    description: item.description,
+    location: item.location
+  })"
+>
+  {{ favoriteStore.isFavorite('trade', item.id) ? '已收藏' : '收藏' }}
+</button>
         </template>
       </ItemCard>
     </div>
@@ -145,11 +149,17 @@ onMounted(() => {
 }
 
 .favorite-btn {
+  margin-left: 12px;
   border: none;
   border-radius: 999px;
   padding: 6px 12px;
   cursor: pointer;
   background: #f3f4f6;
   color: #374151;
+}
+
+.favorite-btn.active {
+  background: #ffffdc;
+  color: #c5c20d;
 }
 </style>
