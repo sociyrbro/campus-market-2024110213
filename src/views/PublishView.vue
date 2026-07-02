@@ -400,7 +400,7 @@ button:disabled {
 }
 
 .primary {
-  background: #2563eb;
+  background: #1bb943;
   color: #fff;
 }
 
