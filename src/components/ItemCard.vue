@@ -58,8 +58,8 @@ defineProps<{
 .tag {
   padding: 4px 8px;
   border-radius: 999px;
-  background: #eff6ff;
-  color: #5ae363;
+  background: #e8f5e9;
+  color: #4caf50;
   font-size: 12px;
 }
 

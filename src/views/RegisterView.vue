@@ -172,7 +172,7 @@ input {
   border-radius: 8px;
   padding: 11px 16px;
   cursor: pointer;
-  background: #2563eb;
+  background: #4caf50;
   color: #fff;
   font-size: 15px;
 }

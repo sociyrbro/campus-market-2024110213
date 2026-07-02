@@ -2,15 +2,6 @@
   "favorites": [
     {
       "userId": 2,
-      "itemId": 2,
-      "type": "errand",
-      "title": "帮买一份晚餐",
-      "description": "需要在 18:30 前送到。",
-      "location": "实验楼 302",
-      "id": 1
-    },
-    {
-      "userId": 2,
       "itemId": 1,
       "type": "lostFound",
       "title": "寻找黑色校园卡",
@@ -26,6 +17,24 @@
       "description": "达到人数后统一下单。",
       "location": "线上确认",
       "id": 3
+    },
+    {
+      "userId": 2,
+      "itemId": 2,
+      "type": "errand",
+      "title": "帮买一份晚餐",
+      "description": "需要在 18:30 前送到。",
+      "location": "实验楼 302",
+      "id": 4
+    },
+    {
+      "userId": 2,
+      "itemId": 4,
+      "type": "trade",
+      "title": "出旧书",
+      "description": "不要旧书便宜卖",
+      "location": "东13",
+      "id": 6
     }
   ],
   "users": [

@@ -25,7 +25,7 @@ defineProps<{
   height: 28px;
   margin: 0 auto 12px;
   border: 3px solid #e5e7eb;
-  border-top-color: #2563eb;
+  border-top-color: #4caf50;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }

@@ -162,7 +162,7 @@ onMounted(() => {
 }
 
 .favorite-btn.active {
-  background: #ffffdc;
-  color: #c5c20d;
+  background: #e8f5e9;
+  color: #4caf50;
 }
 </style>

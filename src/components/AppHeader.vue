@@ -71,7 +71,7 @@ function handleLogout() {
 }
 
 .user-actions a {
-  color: #2563eb;
+  color: #4caf50;
   text-decoration: none;
 }
 

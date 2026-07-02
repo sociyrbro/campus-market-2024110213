@@ -102,8 +102,8 @@ function getTypeLabel(type: string) {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: #eff6ff;
-  color: #2563eb;
+  background: #e8f5e9;
+  color: #4caf50;
   font-size: 28px;
   font-weight: 700;
 }

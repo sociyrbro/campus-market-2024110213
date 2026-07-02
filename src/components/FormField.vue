@@ -33,13 +33,13 @@ defineProps<{
 }
 
 .label em {
-  color: #ef4444;
+  color: #6b7280;
   font-style: normal;
   margin-left: 4px;
 }
 
 .error {
-  color: #ef4444;
+  color: #6b7280;
   font-size: 13px;
 }
 </style>

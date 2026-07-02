@@ -129,16 +129,16 @@ input {
 
 .login-error {
   margin: 0;
-  color: #dc2626;
+  color: #6b7280;
   font-size: 14px;
 }
-
+ 
 .primary {
   border: none;
   border-radius: 8px;
   padding: 11px 16px;
   cursor: pointer;
-  background: #2563eb;
+  background: #4caf50;
   color: #fff;
   font-size: 15px;
 }
