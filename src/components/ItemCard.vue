@@ -8,6 +8,7 @@
     <p class="description">{{ description }}</p>
 
     <div class="meta">
+      <span v-if="publisher">发布人：{{ publisher }}</span>
       <span v-if="location">地点：{{ location }}</span>
       <span v-if="time">时间：{{ time }}</span>
     </div>
@@ -27,6 +28,7 @@ defineProps<{
   title: string
   description: string
   tag?: string
+  publisher?: string
   location?: string
   time?: string
 }>()

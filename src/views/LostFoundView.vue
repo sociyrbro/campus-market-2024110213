@@ -42,6 +42,7 @@
         :title="item.title"
         :description="item.description"
         :tag="item.type === 'lost' ? '寻物' : '招领'"
+        :publisher="item.publisher || '匿名'"
         :location="item.location"
         :time="item.eventTime"
       >

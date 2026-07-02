@@ -89,6 +89,19 @@
       "status": "open",
       "description": "出篮球一个",
       "id": 3
+    },
+    {
+      "title": "出旧书",
+      "category": "教材资料",
+      "price": 12,
+      "condition": "正常使用痕迹",
+      "location": "东13",
+      "publisher": "郭理杰",
+      "publishTime": "2026-07-02 08:56",
+      "image": "",
+      "status": "open",
+      "description": "不要旧书便宜卖",
+      "id": 4
     }
   ],
   "lostFounds": [
@@ -101,7 +114,8 @@
       "eventTime": "2026-06-02 12:10",
       "contact": "站内消息联系",
       "status": "open",
-      "description": "校园卡卡套为黑色，内有学生证。"
+      "description": "校园卡卡套为黑色，内有学生证。",
+      "publisher": "计算机学院学生"
     },
     {
       "id": 2,
@@ -112,7 +126,8 @@
       "eventTime": "2026-06-02 18:40",
       "contact": "站内消息联系",
       "status": "open",
-      "description": "雨伞放在 A 区一楼值班室。"
+      "description": "雨伞放在 A 区一楼值班室。",
+      "publisher": "外国语学院学生"
     },
     {
       "title": "手表遗失",
@@ -123,7 +138,8 @@
       "contact": "站内消息联系",
       "status": "open",
       "description": "今天下课之后回来就没看到了",
-      "id": 3
+      "id": 3,
+      "publisher": "电子工程学院学生"
     }
   ],
   "groupBuys": [

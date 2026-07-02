@@ -34,6 +34,7 @@
         :title="item.title"
         :description="item.description"
         :tag="item.type"
+        :publisher="item.publisher"
         :location="item.location"
         :time="item.deadline"
       >

@@ -273,6 +273,7 @@ async function handleSubmit() {
         contact: '站内消息联系',
         status: 'open',
         description: form.description,
+        publisher: userStore.displayName,
       })
 
       window.alert('失物招领信息发布成功')

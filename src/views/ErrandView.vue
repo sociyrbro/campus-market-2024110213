@@ -34,6 +34,7 @@
         :title="item.title"
         :description="item.description"
         :tag="item.taskType"
+        :publisher="item.publisher"
         :location="item.to"
         :time="item.deadline"
       >

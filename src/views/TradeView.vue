@@ -41,6 +41,7 @@
         :title="item.title"
         :description="item.description"
         :tag="item.category"
+        :publisher="item.publisher"
         :location="item.location"
         :time="item.publishTime"
       >
